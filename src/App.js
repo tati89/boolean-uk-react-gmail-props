@@ -39,10 +39,18 @@ function App() {
 
   const handleChange = e => setSearchInput(e.target.value)
 
+  // const searchedEmails = () => {
+  //   return searchInput
+  //     ? filteredEmails.filter(
+  //         email => searchInput.toLowerCase() === email.sender.toLowerCase()
+  //       )
+  //     : filteredEmails
+  // }
+
   const searchedEmails = () => {
     return searchInput
       ? filteredEmails.filter(
-          email => searchInput.toLowerCase() === email.sender.toLowerCase()
+          email => email.sender.toLowerCase().indexOf(searchInput) != -1
         )
       : filteredEmails
   }
