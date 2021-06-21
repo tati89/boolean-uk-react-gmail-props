@@ -5,6 +5,7 @@ import initialEmails from './data/emails'
 import './App.css'
 import Header from './components/Header'
 import Emails from './components/Emails'
+import LeftNav from './components/LeftNav'
 
 const getReadEmails = emails => emails.filter(email => !email.read)
 
@@ -39,6 +40,7 @@ function App() {
 
   const handleChange = e => setSearchInput(e.target.value)
 
+  // Option 1
   // const searchedEmails = () => {
   //   return searchInput
   //     ? filteredEmails.filter(
@@ -47,6 +49,7 @@ function App() {
   //     : filteredEmails
   // }
 
+  // Option 2
   const searchedEmails = () => {
     return searchInput
       ? filteredEmails.filter(
@@ -65,34 +68,14 @@ function App() {
   return (
     <div className="app">
       <Header searchInput={searchInput} handleChange={handleChange} />
-      <nav className="left-menu">
-        <ul className="inbox-list">
-          <li
-            className={`item ${currentTab === 'inbox' ? 'active' : ''}`}
-            onClick={() => setCurrentTab('inbox')}
-          >
-            <span className="label">Inbox</span>
-            <span className="count">{unreadEmails.length}</span>
-          </li>
-          <li
-            className={`item ${currentTab === 'starred' ? 'active' : ''}`}
-            onClick={() => setCurrentTab('starred')}
-          >
-            <span className="label">Starred</span>
-            <span className="count">{starredEmails.length}</span>
-          </li>
-
-          <li className="item toggle">
-            <label htmlFor="hide-read">Hide read</label>
-            <input
-              id="hide-read"
-              type="checkbox"
-              checked={hideRead}
-              onChange={e => setHideRead(e.target.checked)}
-            />
-          </li>
-        </ul>
-      </nav>
+      <LeftNav
+        setCurrentTab={setCurrentTab}
+        setHideRead={setHideRead}
+        currentTab={currentTab}
+        starredEmails={starredEmails}
+        unreadEmails={unreadEmails}
+        hideRead={hideRead}
+      />
       <Emails
         searchedEmails={searchedEmails}
         toggleRead={toggleRead}
